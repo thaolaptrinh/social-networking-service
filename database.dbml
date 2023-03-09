@@ -138,3 +138,17 @@ Table  balance_logs {
   note text 
   created_at datetime 
 }
+
+Enum auth_log_type {
+  Register
+  Login
+}
+
+Table auth_logs {
+  id int [pk, increment]
+  user_id int(11) [ref: > U.id]
+  type auth_log_type [not null]
+  id_address varchar(225) 
+  user_agent varchar(225)
+  created_at datetime
+}
