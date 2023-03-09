@@ -5,8 +5,8 @@ Project socialNetworkingService {
 
 
 Enum status {
-  on
-  off
+  On
+  Off
 }
 
 
@@ -15,7 +15,7 @@ Enum level {
   Member
 }
 
-Enum payment {
+Enum payment_type {
   Momo
   Bank
   Other
@@ -29,72 +29,112 @@ Enum desposit_type {
 Table settings {
   id int [pk, increment]
   title varchar(225) [default: 'My Site']
-  description text [default: null]
+  descriptiOn text [default: null]
   keywords text [default: null]
   favicon text [default: null]
   logo text [default: null]
-  status status [default: 'on']
-  smtp_user varchar(100) [default: null ] 
-  smtp_pass varchar(100) [default: null]
-  smtp_host varchar(100) [default: null]
-  smtp_port varchar(20) [default:null]
-  smtp_protocol varchar(20) [default:null] 
+  status status [default: 'On']
 }
-
-
 
  
  Table  users  as U{
   id int [pk, increment]
-  username varchar(225) [not null]
-  password text [not null]
-  full_name text [not null]
-  email text [not null]
+  username varchar(225) 
+  password text 
+  full_name text 
+  email text 
   balance double [default: 0]
   level level [default: 'Member']
-  status status [default: 'on']
-  api_key text [not null]
-  created_at datetime [not null]
+  status status [default: 'On']
+  api_key text 
+  created_at datetime 
  }
 
  Table provider  as PRO{
   id int [pk, increment]
-  name varchar(225) [not null]
-  api_url text [not null]
-  api_key text [not null]
-  status status [default: 'on']
+  name varchar(225) 
+  api_url text 
+  api_key text 
+  status status [default: 'On']
 
  }
 
 
  Table  categories  as  CA{
   id int [pk, increment]
-  name varchar(225) [not null]
-  status status [default: 'on']
+  name varchar(225) 
+  status status [default: 'On']
  }
 
- Table  services {
+ Table services as S{
   id int [pk, increment]
   category_id int(11) [ref: > CA.id]
-  service_name varchar(225) [not null]
-  min int(11) [not null]
-  max int(11) [not null]
-  rate double [not null]
-  status status [default: 'on']
+  service_name varchar(225) 
+  min int(11) 
+  max int(11) 
+  rate double 
+  status status [default: 'On']
   provider_id int [ref: > PRO.id]
-  provider_service_id int(11) [not null]
+  provider_service_id int(11) 
  }
 
 
- Table deposit_methods {
+ Table deposit_methods as Method{
   id int [pk, increment]
   payment payment [default: 'Other']
+  name varchar(225) 
   note text [default: null]
-  min_amount double [not null]
-  status status [default: 'on']
+  min_amount double 
+  status status [default: 'On']
+ }
+
+ Enum deposit_status {
+  Pending
+  Canceled
+  Success
  }
 
  Table deposits {
   id int [pk, increment]
   user_id int(11) [ref: > U.id]
+  method_id int(11) [ref: >  Method.id]
+  type desposit_type [default: 'Manual']
+  amount double 
+  note text 
+  status deposit_status [default: 'Pending']
+  created_at datetime 
  }
+
+ Enum order_status {
+  Pending
+  Canceled
+  Processing
+  Partial
+  Success
+ }
+
+
+ Table  orders {
+  id int [pk, increment]
+  user_id int(11) [ref: > U.id]
+  service_id int(11) [ref: > S.id]
+  provider_order_id int(11) 
+  data text 
+  quantity int(11) 
+  price double 
+  start_count int(11) [default: 0]
+  remains int(11) [default: 0]
+  status order_status [default: 'Pending']
+  is_refund status [default: 'Off']
+  created_at datetime 
+  updated_at datetime [default: null]
+ }
+
+Table  balance_logs {
+  id int [pk, increment]
+  user_id int(11) [ref: > U.id]
+  type varchar(10)
+  amount double 
+  note text 
+  created_at datetime 
+}
