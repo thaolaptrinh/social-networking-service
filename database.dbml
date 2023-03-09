@@ -1,0 +1,75 @@
+Project socialNetworkingService {
+  database_type:'mysql'
+  note:'Database building social networking service site'
+}
+
+
+Enum status {
+  on
+  off
+}
+
+
+Enum level {
+  Admin
+  Member
+}
+
+Table settings {
+  id int [pk, increment]
+  title varchar(225) [default: 'My Site']
+  description text [default: null]
+  keywords text [default: null]
+  favicon text [default: null]
+  logo text [default: null]
+  status status [default: 'on']
+  smtp_user varchar(100) [default: null ] 
+  smtp_pass varchar(100) [default: null]
+  smtp_host varchar(100) [default: null]
+  smtp_port varchar(20) [default:null]
+  smtp_protocol varchar(20) [default:null] 
+}
+
+
+
+ 
+ Table  users {
+  id int [pk, increment]
+  username varchar(225) [not null]
+  password text [not null]
+  full_name text [not null]
+  email text [not null]
+  balance double [default: 0]
+  level level [default: 'Member']
+  status status [default: 'on']
+  api_key text [not null]
+  created_at datetime [not null]
+ }
+
+ Table provider  as PRO{
+  id int [pk, increment]
+  name varchar(225) [not null]
+  api_url text [not null]
+  api_key text [not null]
+  status status [default: 'on']
+
+ }
+
+
+ Table  categories  as  CA{
+  id int [pk, increment]
+  name varchar(225) [not null]
+  status status [default: 'on']
+ }
+
+ Table  services {
+  id int [pk, increment]
+  category_id int(11) [ref: > CA.id]
+  service_name varchar(225) [not null]
+  min int(11) [not null]
+  max int(11) [not null]
+  rate double [not null]
+  status status [default: 'on']
+  provider_id int [ref: > PRO.id]
+  provider_service_id int(11) [not null]
+ }
