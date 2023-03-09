@@ -81,7 +81,7 @@ Table settings {
 
  Table deposit_methods as Method{
   id int [pk, increment]
-  payment payment [default: 'Other']
+  payment payment_type [default: 'Other']
   name varchar(225) 
   note text [default: null]
   min_amount double 
