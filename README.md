@@ -197,7 +197,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [svelte-url]: https://svelte.dev/
 [laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
 [laravel-url]: https://laravel.com -->
-[php.net]: https://img.shields.io/badge/PHP-FF2D20?style=for-the-badge&logo=php&logoColor=white
+[php.net]: https://img.shields.io/badge/PHP-0769AD?style=for-the-badge&logo=php&logoColor=white
 [php-url]: https://php.net 
 [bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [bootstrap-url]: https://getbootstrap.com
