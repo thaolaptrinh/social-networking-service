@@ -15,6 +15,17 @@ Enum level {
   Member
 }
 
+Enum payment {
+  Momo
+  Bank
+  Other
+}
+Enum desposit_type {
+  Manual
+  Auto
+}
+
+
 Table settings {
   id int [pk, increment]
   title varchar(225) [default: 'My Site']
@@ -33,7 +44,7 @@ Table settings {
 
 
  
- Table  users {
+ Table  users  as U{
   id int [pk, increment]
   username varchar(225) [not null]
   password text [not null]
@@ -72,4 +83,18 @@ Table settings {
   status status [default: 'on']
   provider_id int [ref: > PRO.id]
   provider_service_id int(11) [not null]
+ }
+
+
+ Table deposit_methods {
+  id int [pk, increment]
+  payment payment [default: 'Other']
+  note text [default: null]
+  min_amount double [not null]
+  status status [default: 'on']
+ }
+
+ Table deposits {
+  id int [pk, increment]
+  user_id int(11) [ref: > U.id]
  }
