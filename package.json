@@ -1,0 +1,12 @@
+{
+  "name": "social-networking-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/thaolaptrinh/social-networking-service.git",
+  "author": "thaolaptrinh <thaolaptrinh@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dbdocs": "dbdocs build database.dbml",
+    "dbml2sql": "dbml2sql database.dbml --mysql -o database.sql"
+  }
+}
